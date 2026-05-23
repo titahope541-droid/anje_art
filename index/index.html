@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anje's Studio</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<style>
+    .mobile{
+        display: none;
+    }
+    @media(max-width: 900px) {
+        #gallery {
+            display: none;
+        }
+        .mobile{
+            display: block;
+        }
+        .snap-carousel {
+            width: 100%;
+            overflow-x: auto;
+            /* enables horizontal scroll */
+            scroll-snap-type: x mandatory;
+            /* snap on x-axis */
+            scroll-behavior: smooth;
+            /* animate the snap */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        .snap-carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Chrome/Safari */
+
+        .snap-track {
+            display: flex;
+            /* puts slides side-by-side */
+            width: max-content;
+            /* as wide as all slides together */
+        }
+
+        .snap-slide {
+            width: 100vw;
+            /* exactly viewport width */
+            height: clamp(25rem, 60vh, 40rem);
+            /* any height you like */
+            flex-shrink: 0;
+            scroll-snap-align: start;
+            /* snap at left edge */
+            display: grid;
+            place-items: center;
+            font-size: clamp(2rem, 5vw, 4rem);
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-glow));
+            color: #fff;
+        }
+
+        .snap-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* fills slide without distortion */
+        }
+
+    }
+</style>
+
+<body>
+
+    <header>
+        <h1>Anje's Studio</h1>
+        <nav>
+            <a href="..\about\about.html">About</a>
+            <a href="..\gallery\gallery.php">Gallery</a>
+            <a href="..\contact\contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>Bringing Stories to Life Through Art</h1>
+        <p>Explore my collection of bold and expressive pieces</p>
+        <a href="..\gallery\gallery.php" class="btn">View Gallery</a>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="reveal">
+        <div class="about-container">
+            <div class="about-text">
+                <h2 class="section-title">About Me</h2>
+                <p>
+                    Hello! I'm a passionate artist blending emotion and imagination into experiences that engage
+                    audiences and clients through bold visual storytelling.
+                </p>
+            </div>
+            <div class="about-image">
+                <img src="about.jpg" alt="About me" />
+            </div>
+        </div>
+    </section>
+
+    <!--Mobile Gallery -->
+    <section class="mobile reveal">
+        <h1 class="section-title-2">Featured Works</h1>
+        <div class="snap-carousel">
+            <div class="snap-track">
+                <div class="snap-slide"><img src="feature1.jpg" alt="Art 1" /></div>
+                <div class="snap-slide"><img src="feature2.jpg" alt="Art 2" /></div>
+                <div class="snap-slide"><img src="feature3.jpg" alt="Art 3" /></div>
+                <div class="snap-slide"><img src="feature4.jpg" alt="Art 3" /></div>
+                <div class="snap-slide"><img src="feature5.jpg" alt="Art 3" /></div>
+                <div class="snap-slide"><img src="feature6.jpg" alt="Art 3" /></div>
+            </div>
+        </div>
+    </section>
+
+    <!--PC Gallery-->
+    <section id="gallery" class="gallery reveal">
+        <h1 class="section-title-2">Featured Works</h1>
+        <div class="carousel">
+            <div class="carousel-track">
+                <img src="feature1.jpg" alt="Art 1" />
+                <img src="feature2.jpg" alt="Art 2" />
+                <img src="feature3.jpg" alt="Art 3" />
+                <img src="feature4.jpg" alt="Art 4" />
+                <img src="feature5.jpg" alt="Art 5" />
+                <img src="feature6.jpg" alt="Art 6" />
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="reveal">
+        <h1 class="section-title-2">Interested In Our Works?</h1>
+        <div class="cta-btn">
+            <a href="\anje_arts\contact\contact.html" class="btn">Contact Us</a>
+        </div>
+    </section>
+
+    <footer>
+        © 2025 Anje's Studio | All rights reserved.
+    </footer>
+
+    <script>
+        // Reveal on scroll
+        window.addEventListener('scroll', () => {
+            document.querySelectorAll('.reveal').forEach(el => {
+                const top = el.getBoundingClientRect().top;
+                const trigger = window.innerHeight * 0.85;
+                if (top < trigger) el.classList.add('active');
+            });
+        });
+
+        //carousel
+        let track = document.querySelector('.carousel-track');
+        let index = 0;
+
+        setInterval(() => {
+            index++;
+            if (index >= track.children.length) index = 0;
+            track.style.transform = `translateX(-${index * 320}px)`;
+        }, 2500);
+    </script>
+</body>
+
+</html>

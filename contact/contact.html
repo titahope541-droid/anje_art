@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Me</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="contact.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Contact Me</h1>
+            <p>Choose your preferred contact method</p>
+        </div>
+        
+        <div class="contact-options">
+            <div class="option email active" data-target="email-form">
+                <div class="icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <span>Email</span>
+            </div>
+            
+            <div class="option whatsapp" data-target="whatsapp-form">
+                <div class="icon">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <span>WhatsApp</span>
+            </div>
+            
+            <div class="option instagram" data-target="instagram-form">
+                <div class="icon">
+                    <i class="fab fa-instagram"></i>
+                </div>
+                <span>Instagram</span>
+            </div>
+        </div>
+        
+        <div class="form-container">
+            <!-- Email Form -->
+            <form class="form-section active" id="email-form" action="sendmail.php" method="POST" >
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" name="name" placeholder="Enter your name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Your Email</label>
+                    <input type="email" name="email" placeholder="Enter your email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Your Message</label>
+                    <textarea name="message" placeholder="Type your message here"></textarea>
+                </div>
+                
+                <button type="submit" >Send Email</button>
+                
+                <div class="instructions">
+                    This will open your default email client to send a message.
+                </div>
+            </form>
+            
+            <!-- WhatsApp Form -->
+            <div class="form-section" id="whatsapp-form">
+                <div class="form-group">
+                    <label for="whatsapp-name">Your Name</label>
+                    <input type="text" id="whatsapp-name" placeholder="Enter your name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="whatsapp-message">Your Message</label>
+                    <textarea id="whatsapp-message" placeholder="Type your message here"></textarea>
+                </div>
+                
+                <button type="button" id="send-whatsapp">Send WhatsApp Message</button>
+                
+                <div class="instructions">
+                    This will open WhatsApp with your message ready to send.
+                </div>
+            </div>
+            
+            <!-- Instagram Form -->
+            <div class="form-section" id="instagram-form">
+                <button type="button" id="send-instagram">Chat On Instagram</button>
+                
+                <div class="instructions">
+                    This will direct you to Instagram with your message details.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Switch between contact methods
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove active class from all options
+                document.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('active');
+                });
+                
+                // Add active class to clicked option
+                this.classList.add('active');
+                
+                // Hide all form sections
+                document.querySelectorAll('.form-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Show the targeted form section
+                const target = this.getAttribute('data-target');
+                document.getElementById(target).classList.add('active');
+            });
+        });
+ 
+        // WhatsApp functionality
+        document.getElementById('send-whatsapp').addEventListener('click', function() {
+            const name = document.getElementById('whatsapp-name').value;
+            const phone = 237674252765;
+            const message = document.getElementById('whatsapp-message').value;
+            
+            if (name && phone && message) {
+                const text = encodeURIComponent(`Hello, my name is ${name}. \n ${message}`);
+                window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+            } else {
+                alert('Please fill in all fields to send a WhatsApp message.');
+            }
+        });
+        
+        // Instagram functionality
+        document.getElementById('send-instagram').addEventListener('click', function() {
+           window.open(`https://www.instagram.com/borisanje`, '_blank');
+        });
+    </script>
+</body>
+</html>
